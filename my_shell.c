@@ -2,6 +2,7 @@
     whsqkaak@naver.com 
     2019/04/24
     myshell.c
+    ubuntu 16.04
 */
 
 #include <stdio.h>
