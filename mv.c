@@ -1,3 +1,8 @@
+/*
+    whsqkaak@naver.com
+    my_shell/mv command
+*/
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <unistd.h>

@@ -1,3 +1,8 @@
+/*
+    whsqkaak@naver.com
+    my_shell/chmod command
+*/
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <sys/stat.h>

@@ -1,3 +1,9 @@
+/*
+    whsqkaak@naver.com
+    my_shell/cat command
+
+*/
+
 #include <stdio.h>
 #include <stdlib.h>
 

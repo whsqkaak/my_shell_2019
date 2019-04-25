@@ -1,3 +1,8 @@
+/*
+    whsqkaak@naver.com
+    my_shell/mkdir command
+*/
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <sys/stat.h>
@@ -8,8 +13,7 @@
 static void make_path(const char *path);
 static void die(const char *s);
 
-int
-main(int argc, char *argv[])
+int main(int argc, char *argv[])
 {
     int i;
 
@@ -22,12 +26,14 @@ main(int argc, char *argv[])
     }
     exit(0);
 }
-static void
-make_path(const char *path)
+
+static void make_path(const char *path)
 {
-    //바로 만들수 있는 경우 
-    /*mkdir 함수를 이용해 바로 디렉토리 생성*/
-  
+    //바로 만들수 있는 경우
+    if (mkdir(path, 0777) == 0) {
+        return;
+    }
+
     //이미 해당 이름을 가진 파일이 있어서 디렉토리 생성이 물가능한 경우
     if (errno == EEXIST) {
         struct stat st;
@@ -38,6 +44,7 @@ make_path(const char *path)
         }
         return;
     }
+
     //상위 디렉토리 생성이 필요한 경우
     else if (errno == ENOENT) {
         char *parent_path = strdup(path);
@@ -64,11 +71,11 @@ make_path(const char *path)
         }
         *sep = '\0';
 
-	// 상위 디렉토리를 의미하는 parent_path를 이용해 make_path함수를 재귀호출
-	// path를 이용해 원래 생성하려던 디렉토리 생성
-	
-	return;
+        make_path(parent_path);
+        if (mkdir(path, 0777) < 0) die(path);
+        return;
     }
+
     //그 외 에러처리
     else {
         perror(path);
@@ -76,8 +83,7 @@ make_path(const char *path)
     }
 }
 
-static void
-die(const char *s)
+static void die(const char *s)
 {
     perror(s);
     exit(1);
