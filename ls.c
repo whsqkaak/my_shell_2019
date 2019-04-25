@@ -35,7 +35,7 @@ static void do_ls(char* path){
 	exit(1);
     }
     while(ent = readdir(d)){
-        printf("%s\n", ent->d_name);
+        printf("%-15s ", ent->d_name);
     }
     printf("\n");
     closedir(d);

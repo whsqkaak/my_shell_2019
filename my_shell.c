@@ -12,16 +12,16 @@
 
 #define CMD_LEN 100 // The Maximum command length.
 
-
 int main(void){
     char *args[CMD_LEN + 1]; // command line arguments.
     char *input; // Input command.
+    char cur_dir[CMD_LEN]; // Current directory.
     int i;
     int status;
-   
-   // Get input command repeatedly 
+    
+    // Get input command repeatedly 
     while (1) {
-        printf("LSH_SHELL>>> ");
+        printf("LSH_SHELL:%s> ",getcwd(cur_dir,CMD_LEN));
 	fflush(stdout); // Flush stdout buffer.
 
         input = (char*)malloc(CMD_LEN * sizeof(char));
