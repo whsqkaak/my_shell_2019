@@ -80,19 +80,9 @@ int main(void){
 	// parent process
 	if (pid > 0){
 	    int retval = waitpid(pid, &status, 0);
-	    if (retval > 0){
-	        if(WIFEXITED(status)){
-		    printf("Child exited by process completion : %d\n", WEXITSTATUS(status));
-		}
-		if(WIFSIGNALED(status)){
-		    printf("Child exited by signal : %d\n", WTERMSIG(status));
-		}
+	    if (retval <= 0){
+	        exit(0);
 	    }
-	    else{
-	        printf("Unexpected error.\n");
-		exit(0);
-	    }
-	    printf("Child process complete.\n");
 	}
 
         no_input:;
