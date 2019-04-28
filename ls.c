@@ -9,11 +9,12 @@
 #include <sys/types.h>
 #include <dirent.h>
 
+#define OPT_BUF 10
 static void do_ls(char *path, char *opt);
 
 int main(int argc, char *argv[]){
     int i, j;
-    char opt[100];
+    char opt[OPT_BUF];
     
     // option token
     j = argc;
@@ -39,6 +40,7 @@ int main(int argc, char *argv[]){
     exit(0);
 }
 
+// ls function
 static void do_ls(char* path, char *opt){
     DIR *d;
     struct dirent *ent;

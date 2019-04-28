@@ -61,7 +61,7 @@ int main(void){
 	    continue;
 	}
 
-	// fork  아무 의미없는 명령어 입력 시에도 프로세스가 fork되야하나
+	// fork
 	pid_t pid = fork();
 	// fork error
 	if (pid < 0){
