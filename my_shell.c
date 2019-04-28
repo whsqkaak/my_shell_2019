@@ -15,14 +15,21 @@
 int main(void){
     char *args[CMD_LEN + 1]; // command line arguments.
     char *input; // Input command.
+    char env_dir[CMD_LEN]; // Executable(command) file location..  
     char cur_dir[CMD_LEN]; // Current directory.
+    
     int i;
     int status;
     
+    getcwd(env_dir, CMD_LEN); // Executable files locate cwd.
+
     // Get input command repeatedly 
     while (1) {
         printf("LSH_SHELL:%s> ",getcwd(cur_dir,CMD_LEN));
 	fflush(stdout); // Flush stdout buffer.
+       
+        char tmp_dir[CMD_LEN*2]; // To protect env_dir variable.
+	strcpy(tmp_dir, env_dir);
 
         input = (char*)malloc(CMD_LEN * sizeof(char));
         fgets(input, CMD_LEN, stdin);
@@ -46,6 +53,14 @@ int main(void){
             break;
 	}
 
+	// cd command
+	if(strcmp(args[0], "cd")==0){
+            if(chdir(args[1])==-1){
+	        break;
+	    }
+	    continue;
+	}
+
 	// fork  아무 의미없는 명령어 입력 시에도 프로세스가 fork되야하나
 	pid_t pid = fork();
 	// fork error
@@ -53,6 +68,10 @@ int main(void){
 	    perror("Fork error");
 	    exit(0);
 	}
+
+        // To make Absolute path.
+        strcat(tmp_dir, "/");
+        args[0] = strcat(tmp_dir, args[0]);
 
 	// child process
 	if (pid == 0){
@@ -78,7 +97,6 @@ int main(void){
 
         no_input:;
 	free(input);
-
     }
     return 0;
 }
